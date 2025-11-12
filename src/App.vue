@@ -1,57 +1,62 @@
 <template>
   <div id="app">
-    <div class="center-content">
-      <h1 class="main-title">XIN CHÀO!</h1>
-      <p class="sub-title">Chào mừng bạn đến với Contact book</p>
+    <AppHeader />
+    <div class="container mt-3">
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
-// Đây là phần logic JavaScript cơ bản
+import AppHeader from "@/components/AppHeader.vue";
+
 export default {
-  name: 'App',
-  data() {
-    return {
-    };
+  components: {
+    AppHeader,
   },
 };
 </script>
 
 <style>
-/* CSS cho ứng dụng Vue */
+/* BƯỚC 1: Thiết lập các phần tử gốc */
+html, body {
+  margin: 0; 
+  padding: 0; 
+  min-height: 100vh; 
+  width: 100%;
+}
+
 #app {
-  font-family: 'Arial', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  
-  /* Đặt toàn bộ ứng dụng vào giữa màn hình */
-  display: flex;
-  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  margin-top: 5%;
+  display: flex; 
+  flex-direction: column; 
+}
+
+/* BƯỚC 3: Thiết lập bố cục chính (Nếu bạn dùng Flexbox cho Sidebar và Nội dung) */
+.main-layout {
+  display: flex; 
+  flex: 1; /* Cho phép main-layout chiếm hết phần còn lại của #app */
+  width: 100%;
+}
+
+.sidebar {
+  width: 280px; /* Chiều rộng cố định, ví dụ 280px */
+  flex-shrink: 0; /* Không cho phép sidebar bị co lại */
+}
+
+.content-view {
   align-items: center;
-  min-height: 100vh; /* Chiếm toàn bộ chiều cao viewport */
-  background-color: #f5f7fa; /* Màu nền sáng và hiện đại */
+  flex-grow: 1; /* RẤT QUAN TRỌNG: Buộc vùng này mở rộng ra hết phần còn lại */
+  overflow-y: auto; 
 }
 
+/* BƯỚC 4: Kiểm tra các container con có giới hạn chiều rộng cố định không */
 .center-content {
-  padding: 40px;
-  border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.main-title {
-  font-size: 3em;
-  color: #3498db; /* Màu xanh dương hiện đại */
-  margin-bottom: 5px;
-  font-weight: 800;
-}
-
-.sub-title {
-  font-size: 1.2em;
-  color: #7f8c8d;
-  font-weight: 500;
+  /* Đảm bảo KHÔNG CÓ thuộc tính width cố định (ví dụ: width: 800px) */
+  max-width: 1200px; /* Chỉ giới hạn chiều rộng TỐI ĐA */
+  width: 90%; /* Hoặc dùng width: 100% */
+  margin: 0 auto; /* Đảm bảo căn giữa */
 }
 </style>
